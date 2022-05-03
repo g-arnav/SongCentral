@@ -69,7 +69,12 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           {post.track ? PT + post.track : ""}
-          <ReactPlayer url={post.track ? PT + post.track : ""} />
+          <ReactPlayer
+              url="http://localhost:8800/tracks/1651568824184beco_final.mp3"
+              playing
+              light
+              controls
+          />
           <span className="postText">{post.description}</span>
           <img
             className="postImg"
