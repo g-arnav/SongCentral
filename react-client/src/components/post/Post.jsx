@@ -5,37 +5,35 @@ import { useEffect } from "react";
 import axios from "axios";
 import { format } from "timeago.js";
 import { AuthContext } from "../../context/AuthContext";
+import React from 'react';
+import ReactPlayer from 'react-player';
 
 export default function Post({ post }) {
   const [likes, setLikes] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PI = process.env.REACT_APP_PUBLIC_IMAGES;
+  const PT = process.env.REACT_APP_PUBLIC_TRACKS;
 
-  const { user: currentUser } = useContext(AuthContext); // Unwrap the user value to alias currentUser
+  const { user: currentUser } = useContext(AuthContext); // unwrap the user value to alias currentUser
 
-  // Check if the post is already liked by the viewing user
+  // check if the post is already liked by the viewing user
 
   useEffect(() => {
     setIsLiked(post.likes.includes(currentUser._id));
   }, [post.likes, currentUser._id]);
 
-  // BEGIN PART 13
-
-  // Get the post author's user
+  // get the post author's user
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = axios.get(`/users?userID=${post.userID}`);
+      const res = await axios.get(`/users?userId=${post.userId}`);
       setUser(res.data);
-      console.log("this was used" + post.userID);
     };
     fetchUser();
-  }, [post.userID]);
+  }, [post.userId]);
 
-  // END PART 13
-
-  // Increase the like and update in DB based on states
+  // increase the like and update in DB based on states
 
   const likeHandler = () => {
     try {
@@ -51,13 +49,14 @@ export default function Post({ post }) {
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
+          <span className="postText">{post.title}</span>
           <div className="postTopLeft">
             <img
               className="postProfileImg"
               src={
                 user.profilePicture
-                  ? PF + user.profilePicture
-                  : PF + "person/noAvatar.png"
+                  ? PI + user.profilePicture
+                  : PI + "person/noAvatar.png"
               }
               alt=""
             />
@@ -69,10 +68,12 @@ export default function Post({ post }) {
           </div>
         </div>
         <div className="postCenter">
+          {post.track ? PT + post.track : ""}
+          <ReactPlayer url={post.track ? PT + post.track : ""} />
           <span className="postText">{post.description}</span>
           <img
             className="postImg"
-            src={post.image ? PF + post.image : ""}
+            src={post.image ? PI + post.image : ""}
             alt=""
           />
         </div>
@@ -80,11 +81,11 @@ export default function Post({ post }) {
           <div className="postBottomLeft">
             <img
               className="likeIcon"
-              src={PF + "like.png"}
+              src={PI + "like.png"}
               onClick={likeHandler}
               alt=""
             />
-            <span className="postLikeCounter">{likes} people like it</span>
+            <span className="postLikeCounter">{likes === 1 ? likes+" person likes this" : likes+" people like this"}</span>
           </div>
         </div>
       </div>

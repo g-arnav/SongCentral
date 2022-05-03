@@ -1,29 +1,32 @@
 const mongoose = require("mongoose");
 
-// BEGIN PART 4
-
 const PostSchema = new mongoose.Schema(
   {
-    userID: {
+    userId: {
       type: String,
-      required: true
+      required: true,
+    },
+    title: {
+        type: String,
+        required: true
     },
     description: {
       type: String,
       max: 500,
-      required: true
     },
-    video: {
-      type: String
+    track: {
+        type: String,
+        required: true
+    },
+    image: {
+      type: String,
     },
     likes: {
       type: Array,
-      default: []
-    }
+      default: [],
+    },
   },
   { timestamps: true }
 );
-
-// END PART 4
 
 module.exports = mongoose.model("Post", PostSchema);

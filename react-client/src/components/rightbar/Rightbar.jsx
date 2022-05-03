@@ -7,23 +7,29 @@ import { AuthContext } from "../../context/AuthContext";
 import { Add, Remove } from "@material-ui/icons";
 
 export default function Rightbar({ user }) {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = process.env.REACT_APP_PUBLIC_IMAGES;
   const [friends, setFriends] = useState([]);
   const [currentFriends, setCurrentFriends] = useState([]);
   const [followed, setFollowed] = useState(false);
   const { user: currentUser, dispatch } = useContext(AuthContext);
 
-  // BEGIN PART 15
-
-  // YOUR CODE HERE
-
-  // END PART 15
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendsList = await axios.get(`/users/friends/${user?._id}`);
+        setFriends(friendsList.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFriends();
+  }, [user?._id]);
 
   useEffect(() => {
     const getCurrentFriends = async () => {
       try {
         const currentFriendsList = await axios.get(
-          `/api/user/friends/${currentUser._id}`
+          `/users/friends/${currentUser._id}`
         );
         setCurrentFriends(currentFriendsList.data);
       } catch (error) {
@@ -44,12 +50,12 @@ export default function Rightbar({ user }) {
   const handleClick = async () => {
     try {
       if (followed) {
-        await axios.put(`/api/user/${user._id}/unfollow`, {
+        await axios.put(`/users/${user._id}/unfollow`, {
           userId: currentUser._id,
         });
         dispatch({ type: "UNFOLLOW", payload: user._id });
       } else {
-        await axios.put(`/api/user/${user._id}/follow`, {
+        await axios.put(`/users/${user._id}/follow`, {
           userId: currentUser._id,
         });
         dispatch({ type: "FOLLOW", payload: user._id });

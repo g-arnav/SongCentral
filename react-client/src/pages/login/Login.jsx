@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 import "./login.css";
-import { loginCall } from "../../loginCall";
+import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { Link } from "react-router-dom";
 
@@ -9,10 +9,9 @@ export default function Login() {
   const password = useRef();
 
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
-  console.log("quorw");
+
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(dispatch);
     loginCall(
       { email: email.current.value, password: password.current.value },
       dispatch
@@ -26,7 +25,7 @@ export default function Login() {
           <h3 className="loginLogo">CubstartBook</h3>
           <span className="loginDesc">Stay connected with CubstartBook.</span>
         </div>
-        <div className="loginRight" >
+        <div className="loginRight">
           <form className="loginBox" onSubmit={handleClick}>
             <input
               placeholder="Email"
@@ -43,11 +42,11 @@ export default function Login() {
               className="loginInput"
               ref={password}
             />
-            <button className="loginButton" type="submit">
-              {isFetching ? "Loading..." : error ? "Login Fail, Try Again"  : "Log In pls"}
+            <button className="loginButton" type={"submit"}>
+              {isFetching ? "Loading..." : error ? "Login Failed, Retry" : "Log In"}
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <Link to="/" style={{ textDecoration: "none" }  }>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <button className="loginRegisterButton">
                 Create a New Account
               </button>

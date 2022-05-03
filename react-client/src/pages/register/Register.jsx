@@ -34,7 +34,7 @@ export default function Register() {
       <div className="loginWrapper">
         <div className="loginLeft">
           <h3 className="loginLogo">CubstartBook</h3>
-          <span className="loginDesc">Get connected with CBook.</span>
+          <span className="loginDesc">Get connected with CubstartBook.</span>
         </div>
         <div className="loginRight">
           <form className="loginBox" onSubmit={handleSubmit}>

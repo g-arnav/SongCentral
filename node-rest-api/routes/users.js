@@ -1,18 +1,17 @@
 const express = require("express");
+const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
-// BEGIN PART 5
-const router = express.Router();
-
-// END PART 5
-
-// BEGIN PART 8
+// it is very important to remember your await statements
 
 // UPDATE USER
 router.put("/:id", async (req, res) => {
+  // :id syntax is a request parameter (i.e. can take on any value)
   if (req.body.userId == req.params.id) {
+    // if the request body contains the same id as the user page (req.params)
     if (req.body.password) {
+      // generate the new encrypted password
       try {
         const salt = await bcrypt.genSalt(10);
         req.body.password = await bcrypt.hash(req.body.password, salt);
@@ -21,10 +20,10 @@ router.put("/:id", async (req, res) => {
       }
     }
     try {
-      await User.findByIdAndUpdate(req.body.userID, {
-        $set: req.body
+      await User.findByIdAndUpdate(req.body.userId, {
+        $set: req.body, // sets all fields to be the one found in req.body
       });
-      res.status(200).json("Account updated");
+      res.status(200).json("Account has been updated");
     } catch (err) {
       console.log(err);
     }
@@ -33,14 +32,29 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// GET USER BY ID OR USERNAME
+// DELETE USER
+router.delete("/:id", async (req, res) => {
+  if (req.body.userId == req.params.id) {
+    try {
+      await User.findByIdAndDelete(req.body.userId);
+      res.status(200).json("Account has been deleted");
+    } catch (err) {
+      console.log(err);
+    }
+  } else {
+    return res.status(403).json("No permissions");
+  }
+});
+
+// GET USER BY EITHER ID OR USERNAME USING QUERY PARAMETER
 router.get("/", async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
   try {
-    const userID = req.query.userID;
-    const username = req.query.username;
-    const user = userID ? await User.findById(userID)
-        : await User.findOne({username : username});
-    const { password, updatedAt, ...other } = user._doc;
+    const user = userId
+      ? await User.findById(userId)
+      : await User.findOne({ username: username });
+    const { password, updatedAt, ...other } = user._doc; // _doc carries the entire document object in MongoDB. need to remove password and other extranneous information from the get response.
     res.status(200).json(other);
   } catch (err) {
     res.status(404).json(err);
@@ -50,16 +64,15 @@ router.get("/", async (req, res) => {
 // GET FOLLOWING/FRIENDS
 router.get("/friends/:userId", async (req, res) => {
   try {
-    const user = await User.findById(req.params.userID);
+    const user = await User.findById(req.params.userId);
     const friends = await Promise.all(
-        user.following.map((friendID) => {
-          return User.findById(friendID);
-        })
-      );
+      user.following.map((friendId) => {
+        return User.findById(friendId);
+      })
+    );
     let friendsList = [];
     friends.map((friend) => {
-      const { _id, username, profilePicture } = friend;
-      // Only unpack the properties we need, then push
+      const { _id, username, profilePicture } = friend; // only unpack the properties we need
       friendsList.push({ _id, username, profilePicture });
     });
     res.status(200).json(friendsList);
@@ -70,16 +83,18 @@ router.get("/friends/:userId", async (req, res) => {
 
 // FOLLOW USER
 router.put("/:id/follow", async (req, res) => {
+  // if not attempting to follow self
   if (req.body.userId !== req.params.id) {
     try {
-      const followed = await User.findByID(req.params.id);
-      const follower = await User.findByID(req.body.userID);
-      if (!followed.followers.includes(req.body.userID)) {
-        await followed.updateOne({ $push: {followers: req.body.userID}});
-        await follower.updateOne({ $push: {following: req.params.id}});
-        res.status(200).json("Follow successful");
+      const user = await User.findById(req.params.id);
+      const currentUser = await User.findById(req.body.userId);
+      // if not already following
+      if (!user.followers.includes(req.body.userId)) {
+        await user.updateOne({ $push: { followers: req.body.userId } }); // update both users involved using $push syntax
+        await currentUser.updateOne({ $push: { following: req.params.id } }); // update both users involved
+        res.status(200).json("Followed user");
       } else {
-        res.status(403).json("Already followed");
+        res.status(403).json("Already following");
       }
     } catch (err) {
       console.log(err);
@@ -93,36 +108,20 @@ router.put("/:id/follow", async (req, res) => {
 router.put("/:id/unfollow", async (req, res) => {
   if (req.body.userId !== req.params.id) {
     try {
-      const followed = await User.findByID(req.params.id);
-      const follower = await User.findByID(req.body.userID);
-      if (followed.followers.includes(req.body.userID) && follower.following.includes(req.params.id)) {
-        await followed.updateOne({ $pull: {followers: req.body.userID }});
-        await follower.updateOne({ $pull: {following: req.params.id }});
-        res.status(200).json("Unfollow successful");
+      const user = await User.findById(req.params.id);
+      const currentUser = await User.findById(req.body.userId);
+      if (user.followers.includes(req.body.userId)) {
+        await user.updateOne({ $pull: { followers: req.body.userId } }); // update both users involved using $pull syntax
+        await currentUser.updateOne({ $pull: { following: req.params.id } }); // update both users involved
+        res.status(200).json("Unfollowed user");
       } else {
-        res.status(403).json("Not followed");
+        res.status(403).json("Not following");
       }
     } catch (err) {
       console.log(err);
     }
   } else {
     res.status(403).json("Can't unfollow self");
-  }
-});
-
-// END PART 8
-
-// DELETE USER
-router.delete("/:id", async (req, res) => {
-  if (req.body.userId == req.params.id) {
-    try {
-      await User.findByIdAndDelete(req.body.userId);
-      res.status(200).json("Account has been deleted");
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    return res.status(403).json("No permissions");
   }
 });
 

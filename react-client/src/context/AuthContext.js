@@ -7,27 +7,25 @@ const INITIAL_STATE = {
   error: false,
 };
 
-// BEGIN PART 11
 export const AuthContext = createContext(INITIAL_STATE);
 
-// YOUR CODE HERE
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(state.user));
   }, [state.user]);
-  console.log("dispatch sourse");
+
   return (
-      <AuthContext.Provider
-        value={{
-          user : state.user,
-          isFetching: state.isFetching,
-          error: state.error,
-          dispatch
-        }}>
-        {children}
-      </AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        user: state.user,
+        isFetching: state.isFetching,
+        error: state.error,
+        dispatch,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
-// END PART 11

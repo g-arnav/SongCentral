@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Profile() {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = process.env.REACT_APP_PUBLIC_IMAGES;
   const [user, setUser] = useState({});
   const [file, setFile] = useState(null);
   const { dispatch } = useContext(AuthContext);
