@@ -36,6 +36,10 @@ const UserSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    liked_posts: {
+      type: Array,
+      default: [],
+    },
     description: {
       type: String,
       max: 50,

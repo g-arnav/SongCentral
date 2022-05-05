@@ -10,26 +10,11 @@ import {
 } from "@material-ui/icons";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import CloseFriend from "../closeFriend/CloseFriend";
 
 export default function Sidebar() {
   const { user: currentUser } = useContext(AuthContext);
-  const [currentFriends, setCurrentFriends] = useState([]);
-
-  useEffect(() => {
-    const getCurrentFriends = async () => {
-      try {
-        const currentFriendsList = await axios.get(
-          `/users/friends/${currentUser._id}`
-        );
-        setCurrentFriends(currentFriendsList.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCurrentFriends();
-  }, [currentUser._id]);
 
   return (
     <div className="sidebar">
@@ -37,11 +22,15 @@ export default function Sidebar() {
         <ul className="sidebarList">
           <li className="sidebarListItem">
             <PlayCircleFilledOutlined className="sidebarIcon" />
-            <span className="sidebarListItemText">Explore</span>
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <span className="sidebarListItemText">Explore</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <Bookmark className="sidebarIcon" />
-            <span className="sidebarListItemText">Liked Tracks</span>
+            <Link to="/liked" style={{ textDecoration: "none" }}>
+              <span className="sidebarListItemText">Liked Tracks</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <Chat className="sidebarIcon" />
@@ -55,12 +44,6 @@ export default function Sidebar() {
             <Event className="sidebarIcon" />
             <span className="sidebarListItemText">Concerts Near Me</span>
           </li>
-        </ul>
-        <hr className="sidebarHr" />
-        <ul className="sidebarFriendList">
-          {currentFriends.map((u) => (
-            <CloseFriend key={u._id} user={u} />
-          ))}
         </ul>
       </div>
     </div>

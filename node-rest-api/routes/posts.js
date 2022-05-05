@@ -50,12 +50,15 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const user = await User.findById(req.body.userId);
     // check if already liked by curr user and either like or unlike
-    if (!post.likes.includes(req.body.userId)) {
+    if (!post.likes.includes(req.body.userId) && !user.liked_posts.includes(req.params.id)) {
       await post.updateOne({ $push: { likes: req.body.userId } });
+      await user.updateOne({ $push: { liked_posts: req.params.id } });
       res.status(200).json("Post liked");
-    } else {
+    } else if (post.likes.includes(req.body.userId) && user.liked_posts.includes(req.params.id)){
       await post.updateOne({ $pull: { likes: req.body.userId } });
+      await user.updateOne({ $pull: { liked_posts: req.params.id } });
       res.status(200).json("Post unliked");
     }
   } catch (err) {
@@ -66,16 +69,25 @@ router.put("/:id/like", async (req, res) => {
 // GENERATE FEED !!! THIS MUST COME BEFORE GET POST; EXPLAIN HOW ROUTE PRIORITY WORKS
 router.get("/timeline/:userId", async (req, res) => {
   try {
+
+    const allPosts = await Post.find();
+    res.status(200).json(allPosts); // all posts together (user + friends)
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.get("/liked/:userId", async (req, res) => {
+  try {
     const currentUser = await User.findById(req.params.userId);
     // Post.find(match key value as param)
-    const userPosts = await Post.find({ userId: currentUser._id }); // put all posts from currentUser in the TL
     // all friend posts
-    const friendPosts = await Promise.all(
-      currentUser.following.map((friendId) => {
-        return Post.find({ userId: friendId });
-      })
+    const likedPosts = await Promise.all(
+        currentUser.liked_posts.map((postID) => {
+          return Post.find({ _id: postID });
+        })
     );
-    res.status(200).json(userPosts.concat(...friendPosts)); // all posts together (user + friends)
+    res.status(200).json(likedPosts); // all posts together (user + friends)
   } catch (err) {
     console.log(err);
   }

@@ -2,6 +2,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
+import Liked from "./pages/Liked/Liked";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -18,6 +20,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={user ? <Home /> : <Register />} />
+        <Route path="/liked" element={user ? <Liked /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
         <Route
           path="/register"

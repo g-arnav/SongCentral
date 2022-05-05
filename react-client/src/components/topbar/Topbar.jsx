@@ -11,10 +11,11 @@ export default function Topbar() {
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span className="logo">CubstartBook</span>
+          <span className="logo">FireStarter</span>
         </Link>
       </div>
       <div className="topbarRight">
+          {user.username + "   "}
         <Link to={`/profile/${user.username}`}>
           <img
             src={
