@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
+import { register } from "timeago.js";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -23,7 +24,7 @@ function App() {
       <Routes>
         <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-        <Route path="/preference" element={!user ? <Navigate to="/" /> : <Preferences/>} />
+        <Route path="/preferences" element={<Preferences/>} />
         <Route
           path="/register"
         

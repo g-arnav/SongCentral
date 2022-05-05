@@ -25,7 +25,7 @@ export default function Preferences() {
     }
     try {
       await axios.put("/" + currentUser._id, user);
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
