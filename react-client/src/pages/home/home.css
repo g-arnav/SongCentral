@@ -1,0 +1,15 @@
+.homeContainer{
+    display: flex;
+    width: 100%;
+}
+
+.logOutButton {
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    background-color: #1775ee;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+  }
