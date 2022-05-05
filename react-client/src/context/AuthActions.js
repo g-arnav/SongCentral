@@ -33,3 +33,8 @@ export const Unfollow = (userId) => ({
   payload: userId,
 });
 
+export const Logout = (user) => ({
+  type: "LOGOUT",
+  payload: user,
+});
+
