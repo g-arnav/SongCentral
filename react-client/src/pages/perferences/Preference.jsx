@@ -14,7 +14,14 @@ export default function Register() {
   const zipCode = useRef();
   const songCloundLink = useRef();
 
-  
+  const handleClick = (e) => {
+    e.preventDefault();
+    console.log(dispatch);
+    loginCall(
+      { email: email.current.value, password: password.current.value },
+      dispatch
+    );
+  };
 
   return (
     <div className="login">
@@ -49,7 +56,7 @@ export default function Register() {
            
             
             <Link to="/login" style={{ textDecoration: "none" }}>
-              <button className="loginRegisterButton">Log into Account</button>
+              <button className="loginRegisterButton">Continue</button>
             </Link>
           </form>
         </div>
