@@ -19,10 +19,11 @@ export default function Register() {
         username: username.current.value,
         email: email.current.value,
         password: password.current.value,
+      
       };
       try {
         await axios.post("/auth/register", user);
-        navigate("/login");
+        navigate("/preferences");
       } catch (error) {
         console.log(error);
       }

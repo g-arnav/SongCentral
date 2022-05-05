@@ -26,34 +26,28 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: ""
     },
-    coverPicture: {
+    link: {
       type: String,
       default: "",
     },
-    followers: {
-      type: Array,
-      default: [],
-    },
-    following: {
-      type: Array,
-      default: [],
-    },
-    description: {
+    
+    genrePreference: {
       type: String,
-      max: 50,
+      default: "",
+    },
+    zip: {
+      type: String,
+      default: "",
+    },
+    about: {
+      type: String,
+      max: 500,
     },
     city: {
       type: String,
       max: 50,
     },
-    from: {
-      type: String,
-      max: 50,
-    },
-    relationship: {
-      type: Number,
-      enum: [1, 2, 3],
-    }
+    
   },
   { timestamps: true }
 );

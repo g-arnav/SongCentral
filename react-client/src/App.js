@@ -2,6 +2,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Profile from "./pages/profile/Profile";
 import Register from "./pages/register/Register";
+import Preferences from "./pages/preferences/Preference";
+
 
 
 import {
@@ -21,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route path="/preference" element={!user ? <Navigate to="/" /> : <Preferences/>} />
         <Route
           path="/register"
         
