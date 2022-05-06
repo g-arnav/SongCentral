@@ -5,8 +5,9 @@ const bcrypt = require("bcrypt");
 
 // REGISTRATION
 router.post("/register", async (req, res) => {
+
   try {
-    // PASSWORD ENCRYPTION
+    console.log("registrering") ; // PASSWORD ENCRYPTION
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -15,9 +16,6 @@ router.post("/register", async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
-      city: req.body.city,
-      from: req.body.from,
-      relationship: req.body.relationship,
     });
 
     // SAVE NEW USER INTO MONGODB

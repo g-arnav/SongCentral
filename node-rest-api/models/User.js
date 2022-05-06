@@ -1,63 +1,64 @@
 const mongoose = require("mongoose");
 
+// BEGIN PART 4
+
 const UserSchema = new mongoose.Schema(
-  {
-    username: {
-      type: String,
-      require: true,
-      min: 3,
-      max: 20,
-      unique: true,
+    {
+        username: {
+            type: String,
+            required: true,
+            min: 3,
+            max: 20,
+            unique: true
+        },
+        email: {
+            type: String,
+            max: 50,
+            required: true,
+            unique: true
+        },
+        password: {
+            type: String,
+            min: 6,
+            required: true,
+        },
+        ProfilePicture: {
+            type: String,
+            default: ""
+        },
+        link: {
+            type: String,
+            default: "",
+        },
+        genrePreference: {
+            type: String,
+            default: "",
+        },
+        zip: {
+            type: String,
+            default: "",
+        },
+        about: {
+            type: String,
+            max: 500,
+        },
+        city: {
+            type: String,
+            max: 50,
+        },
+        message_to: {
+            type: Array,
+            default: []
+        },
+        liked_posts: {
+            type: Array,
+            default: []
+        }
+
     },
-    email: {
-      type: String,
-      required: true,
-      max: 50,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      min: 6,
-    },
-    profilePicture: {
-      type: String,
-      default: "",
-    },
-    coverPicture: {
-      type: String,
-      default: "",
-    },
-    followers: {
-      type: Array,
-      default: [],
-    },
-    following: {
-      type: Array,
-      default: [],
-    },
-    liked_posts: {
-      type: Array,
-      default: [],
-    },
-    description: {
-      type: String,
-      max: 50,
-    },
-    city: {
-      type: String,
-      max: 50,
-    },
-    from: {
-      type: String,
-      max: 50,
-    },
-    relationship: {
-      type: Number,
-      enum: [1, 2, 3],
-    },
-  },
-  { timestamps: true }
+    { timestamps: true }
 );
+
+// END PART 4
 
 module.exports = mongoose.model("User", UserSchema);

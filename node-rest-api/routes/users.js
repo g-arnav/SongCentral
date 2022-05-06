@@ -9,27 +9,15 @@ const Post = require("../models/Post");
 // UPDATE USER
 router.put("/:id", async (req, res) => {
   // :id syntax is a request parameter (i.e. can take on any value)
-  if (req.body.userId == req.params.id) {
-    // if the request body contains the same id as the user page (req.params)
-    if (req.body.password) {
-      // generate the new encrypted password
-      try {
-        const salt = await bcrypt.genSalt(10);
-        req.body.password = await bcrypt.hash(req.body.password, salt);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    try {
-      await User.findByIdAndUpdate(req.body.userId, {
-        $set: req.body, // sets all fields to be the one found in req.body
-      });
-      res.status(200).json("Account has been updated");
-    } catch (err) {
-      console.log(err);
-    }
-  } else {
-    return res.status(403).json("No permissions");
+  console.log("try update");
+  console.log(req.body);
+  try {
+    await User.findByIdAndUpdate(req.body.userId, {
+      $set: req.body, // sets all fields to be the one found in req.body
+    });
+    res.status(200).json("Account has been updated");
+  } catch (err) {
+    console.log(err);
   }
 });
 
