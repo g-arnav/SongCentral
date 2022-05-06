@@ -101,3 +101,8 @@
   object-fit: cover;
   cursor: pointer;
 }
+.signOutButton {
+  background-color: #999;
+  color: white;
+  border-radius: 10px;
+}

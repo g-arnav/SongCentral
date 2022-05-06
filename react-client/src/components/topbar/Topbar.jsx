@@ -2,10 +2,22 @@ import "./topbar.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Topbar() {
   const { user } = useContext(AuthContext);
   const PF = process.env.REACT_APP_PUBLIC_IMAGES;
+  const { isFetching, error, dispatch } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const handleClick = (e) => {
+        e.preventDefault();
+        console.log(dispatch);
+
+        dispatch(
+            {type: "LOGOUT"}
+        );
+        navigate("/login");
+    };
 
   return (
     <div className="topbarContainer">
@@ -15,7 +27,10 @@ export default function Topbar() {
         </Link>
       </div>
       <div className="topbarRight">
-          {user.username + "   "}
+        {"Welcome, " +  user.username + "   "}
+        <form onSubmit={handleClick} style={{ textDecoration: "none" }}>
+          <button className="loginRegisterButton" type={"submit"} > Logout </button>
+        </form>
         <Link to={`/profile/${user.username}`}>
           <img
             src={
