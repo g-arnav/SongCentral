@@ -19,6 +19,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* <Route path="/" element={<Register />} /> */}
         <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/liked" element={user ? <Liked /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />

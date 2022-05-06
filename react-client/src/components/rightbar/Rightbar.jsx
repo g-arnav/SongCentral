@@ -70,15 +70,15 @@ export default function Rightbar({ user }) {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src={PF + "Poh.jpg"} alt="" />
+          <img className="birthdayImg" src={PF + "donald.jpg"} alt="" />
           <span className="birthdayText">
-            And now for some ads:
+            Featured:
           </span>
         </div>
-        <img className="rightbarAd" src={PF + "Poh.jpg"} alt="" />
-        <h4 className="rightbarTitle"><u>My Connections:</u></h4>
         <img className="rightbarAd" src={PF + "donald.jpg"} alt="" />
-        <img className="rightbarAd" src={PF + "tiger.jpg"} alt="" />
+        <h4 className="rightbarTitle"><u>My Artists:</u></h4>
+        <img className="rightbarAd" src={PF + "fugees.png"} alt="" />
+        <img className="rightbarAd" src={PF + "dre.jpeg"} alt="" />
         <ul className="rightbarFollowingsHome">
           {currentFriends.map((u) => (
             <Online key={u._id} user={u} />
@@ -92,7 +92,7 @@ export default function Rightbar({ user }) {
     return (
       <>
         {user.username !== currentUser.username && (
-          <button className="rightbarFollowButton" onClick={handleClick}>
+          <button className="rightbarFollowx`Button" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
             {followed ? <Remove /> : <Add />}
           </button>
