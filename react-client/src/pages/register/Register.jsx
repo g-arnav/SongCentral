@@ -31,32 +31,36 @@ export default function Register() {
 
   return (
     <div className="login">
+      <div className="ultimateCircle"></div>
+      <div className="gigaCircle"></div>
+      <div className="biggestCircle"></div>
+      <div className="bigCircle"></div>
+      <div className="mediumCircle"></div>
       <div className="loginWrapper">
-        <div className="loginLeft">
-          <h3 className="loginLogo">CubstartBook</h3>
-          <span className="loginDesc">Get connected with CubstartBook.</span>
+        <div className="loginTop">
+          <h4 className="loginLogo">Fire Starter</h4>
         </div>
-        <div className="loginRight">
+        <div className="loginBottom">
           <form className="loginBox" onSubmit={handleSubmit}>
             <input
               placeholder="Username"
               required
               ref={username}
-              className="loginInput"
+              className="username"
             />
             <input
               placeholder="Email"
               required
               ref={email}
               type="email"
-              className="loginInput"
+              className="email"
             />
             <input
               placeholder="Password"
               required
               ref={password}
               type="password"
-              className="loginInput"
+              className="password"
               minLength="6"
             />
             <input
@@ -64,13 +68,13 @@ export default function Register() {
               required
               ref={passwordAgain}
               type="password"
-              className="loginInput"
+              className="password"
             />
-            <button className="loginButton" type="submit">
-              Sign Up
-            </button>
+            <button className="loginRegisterButton">Log into Account</button>
             <Link to="/login" style={{ textDecoration: "none" }}>
-              <button className="loginRegisterButton">Log into Account</button>
+              <button className="loginButton" type="submit">
+                Sign Up
+              </button>
             </Link>
           </form>
         </div>

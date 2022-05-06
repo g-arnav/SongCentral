@@ -68,8 +68,8 @@ export default function Profile() {
             <div className="profileCover">
               <img
                 className="profileCoverImg"
-                src={
-                  user.coverImg ? PF + user.coverImg : PF + "person/noCover.png"
+                src={ 
+                  user.coverImg ? PF + "realfire.png" : PF + "realfire.png"
                 }
                 alt=""
               />

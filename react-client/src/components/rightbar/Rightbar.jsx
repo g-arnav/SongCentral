@@ -70,13 +70,15 @@ export default function Rightbar({ user }) {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src={PF + "like.png"} alt="" />
+          <img className="birthdayImg" src={PF + "Poh.jpg"} alt="" />
           <span className="birthdayText">
-            <b>Like</b> some posts today :)
+            And now for some ads:
           </span>
         </div>
-        <img className="rightbarAd" src={PF + "ad.png"} alt="" />
-        <h4 className="rightbarTitle">Online Friends</h4>
+        <img className="rightbarAd" src={PF + "Poh.jpg"} alt="" />
+        <h4 className="rightbarTitle"><u>My Connections:</u></h4>
+        <img className="rightbarAd" src={PF + "donald.jpg"} alt="" />
+        <img className="rightbarAd" src={PF + "tiger.jpg"} alt="" />
         <ul className="rightbarFollowingsHome">
           {currentFriends.map((u) => (
             <Online key={u._id} user={u} />

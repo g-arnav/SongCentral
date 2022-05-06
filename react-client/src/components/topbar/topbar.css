@@ -1,8 +1,10 @@
 .topbarContainer {
   height: 50px;
   width: 100%;
-  background-color: #1877f2;
+  background-color: black ;
   display: flex;
+  /* flex-direction: row;
+  justify-content: space-evenly; */
   align-items: center;
   position: sticky;
   top: 0;
@@ -19,6 +21,10 @@
   font-weight: bold;
   color: white;
   cursor: pointer;
+  background-clip: yellow;
+  background: -webkit-linear-gradient(#B62203, #FAC000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .topbarCenter {

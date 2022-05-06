@@ -1,5 +1,5 @@
 import "./share.css";
-import { PermMedia } from "@material-ui/icons";
+import { PermMedia, LibraryMusic, Palette } from "@material-ui/icons";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext, useRef, useState } from "react";
 import axios from "axios";
@@ -74,7 +74,7 @@ export default function Share() {
               ref={title}
           />
           <label htmlFor="track" className="shareOption">
-            <PermMedia htmlColor="tomato" className="shareIcon" />
+            <LibraryMusic className="shareIcon" />
             <span className="shareOptionText">Track</span>
             <input
                 style={{ display: "none" }}
@@ -89,7 +89,7 @@ export default function Share() {
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="img" className="shareOption">
-              <PermMedia htmlColor="tomato" className="shareIcon" />
+              <Palette className="shareIcon" />
               <span className="shareOptionText">Cover Art</span>
               <input
                 style={{ display: "none" }}

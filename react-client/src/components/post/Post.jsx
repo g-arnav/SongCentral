@@ -49,7 +49,6 @@ export default function Post({ post }) {
     <div className="post">
       <div className="postWrapper">
         <div className="postTop">
-          <span className="postText">{post.title}</span>
           <div className="postTopLeft">
             <img
               className="postProfileImg"
@@ -68,19 +67,22 @@ export default function Post({ post }) {
           </div>
         </div>
         <div className="postCenter">
-          {post.track ? PT + post.track : ""}
-          <ReactPlayer
-              url={post.track ? PT + post.track : ""}
-              playing
-              light
-              controls
-          />
-          <span className="postText">{post.description}</span>
+          {/* {post.track ? PT + post.track : ""} */}
           <img
             className="postImg"
             src={post.image ? PI + post.image : ""}
             alt=""
           />
+          <ReactPlayer
+              url={post.track ? PT + post.track : ""}
+              playing
+              light={true} 
+              height='100px'
+              controls
+              style={ {padding: 20} }
+          />
+          <span style={{ padding: 20 }}className="postText">{post.description}</span>
+          
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

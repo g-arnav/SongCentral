@@ -19,13 +19,12 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
+    <div className="loginL">
       <div className="loginWrapper">
         <div className="loginLeft">
-          <h3 className="loginLogo">CubstartBook</h3>
-          <span className="loginDesc">Stay connected with CubstartBook.</span>
+          <h3 className="loginLogo">Fire Starter</h3>
         </div>
-        <div className="loginRight">
+        <div className="loginRight" >
           <form className="loginBox" onSubmit={handleClick}>
             <input
               placeholder="Email"
@@ -42,11 +41,11 @@ export default function Login() {
               className="loginInput"
               ref={password}
             />
-            <button className="loginButton" type={"submit"}>
-              {isFetching ? "Loading..." : error ? "Login Failed, Retry" : "Log In"}
+            <button className="loginButton" type="submit">
+              {isFetching ? "Loading..." : error ? "Login Fail, Try Again"  : "Log In "}
             </button>
             <span className="loginForgot">Forgot Password?</span>
-            <Link to="/" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }  }>
               <button className="loginRegisterButton">
                 Create a New Account
               </button>
