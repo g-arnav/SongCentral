@@ -55,11 +55,13 @@ router.put("/:id/like", async (req, res) => {
     if (!post.likes.includes(req.body.userId) && !user.liked_posts.includes(req.params.id)) {
       await post.updateOne({ $push: { likes: req.body.userId } });
       await user.updateOne({ $push: { liked_posts: req.params.id } });
+      console.log("Post liked");
       res.status(200).json("Post liked");
     } else if (post.likes.includes(req.body.userId) && user.liked_posts.includes(req.params.id)){
       await post.updateOne({ $pull: { likes: req.body.userId } });
       await user.updateOne({ $pull: { liked_posts: req.params.id } });
       res.status(200).json("Post unliked");
+      console.log("Post unliked");
     }
   } catch (err) {
     console.log(err);

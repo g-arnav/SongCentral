@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import {useContext, useRef} from "react";
 import "./register.css";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext";
+import {loginCall} from "../../apiCalls";
 
 export default function Register() {
   const username = useRef();
@@ -10,9 +12,14 @@ export default function Register() {
   const passwordAgain = useRef();
   const navigate = useNavigate();
 
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (passwordAgain.current.value !== password.current.value) {
+      console.log(passwordAgain.current.value);
+      console.log(password.current.value);
       password.current.setCustomValidity("Passwords don't match");
     } else {
       const user = {
@@ -21,7 +28,12 @@ export default function Register() {
         password: password.current.value,
       };
       try {
+        console.log("inputtign new user");
         await axios.post("/auth/register", user);
+        loginCall(
+            { email: email.current.value, password: password.current.value },
+            dispatch
+        );
         navigate("/preferences");
       } catch (error) {
         console.log(error);
@@ -70,12 +82,12 @@ export default function Register() {
               type="password"
               className="password"
             />
-            <button className="loginRegisterButton">Log into Account</button>
-            <Link to="/login" style={{ textDecoration: "none" }}>
-              <button className="loginButton" type="submit">
-                Sign Up
-              </button>
+            <Link to={"/login"}>
+              <button className="loginRegisterButton">Log into Account</button>
             </Link>
+            <button className="loginButton" type="submit">
+              Sign Up
+            </button>
           </form>
         </div>
       </div>

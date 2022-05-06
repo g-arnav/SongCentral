@@ -117,10 +117,10 @@
   background: -webkit-linear-gradient(#B62203, #FAC000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  position: fixed;
+  position: relative;
   transition: all 1.0s cubic-bezier(0.75, 0.25, 0.25, 0.75);
-  top: 15px;
-  left: 645px
+  text-align: center;
+  top: -150px;
 }
 
 .loginDesc {
@@ -131,17 +131,15 @@
 }
 
 .loginBox {
-  height: 400opx;
+  height: 300px;
   width: 400px;
-  margin-top: 75px;
   margin-bottom: 100px;
   background-color: #FF7500;
   border-radius: 50%;
-  display: flex;
-  flex-direction: column;
+  display: inline-list-item;
   align-items: center;
-  justify-content: space-between;
   z-index: 5;
+  top: -150px;
 }
 
 .loginInput {

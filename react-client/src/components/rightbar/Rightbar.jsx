@@ -1,5 +1,4 @@
 import "./rightbar.css";
-import Online from "../online/Online";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -39,13 +38,13 @@ export default function Rightbar({ user }) {
     getCurrentFriends();
   }, [currentUser._id]);
 
-  useEffect(() => {
-    const checkFollowed = async () => {
-      const isFollowed = await currentUser.following.includes(user?._id);
-      setFollowed(isFollowed);
-    };
-    checkFollowed();
-  }, [currentUser, user?._id]);
+  // useEffect(() => {
+  //   const checkFollowed = async () => {
+  //     const isFollowed = await currentUser.following.includes(user?._id);
+  //     setFollowed(isFollowed);
+  //   };
+  //   checkFollowed();
+  // }, [currentUser, user?._id]);
 
   const handleClick = async () => {
     try {
@@ -79,11 +78,6 @@ export default function Rightbar({ user }) {
         <h4 className="rightbarTitle"><u>My Connections:</u></h4>
         <img className="rightbarAd" src={PF + "donald.jpg"} alt="" />
         <img className="rightbarAd" src={PF + "tiger.jpg"} alt="" />
-        <ul className="rightbarFollowingsHome">
-          {currentFriends.map((u) => (
-            <Online key={u._id} user={u} />
-          ))}
-        </ul>
       </>
     );
   };
