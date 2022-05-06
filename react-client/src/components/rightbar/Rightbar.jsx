@@ -23,13 +23,17 @@ export default function Rightbar({ user }) {
     return (
       <>
         <div className="birthdayContainer">
-          <img className="birthdayImg" src={PF + "Poh.jpg"} alt="" />
+          <img className="birthdayImg" src={PF + "donald.jpg"} alt="" />
           <span className="birthdayText">
-            And now for some ads:
+            Featured:
           </span>
         </div>
-        <img className="rightbarAd" src={PF + "Poh.jpg"} alt="" />
         <img className="rightbarAd" src={PF + "donald.jpg"} alt="" />
+        <h4 className="rightbarTitle"><u>My Artists:</u></h4>
+        <img className="rightbarAd" src={PF + "fugees.png"} alt="" />
+        <img className="rightbarAd" src={PF + "dre.jpeg"} alt="" />
+        <ul className="rightbarFollowingsHome">
+        </ul>
         <img className="rightbarAd" src={PF + "tiger.jpg"} alt="" />
       </>
     );
@@ -37,7 +41,7 @@ export default function Rightbar({ user }) {
 
   const ProfileRightbar = () => {
     return (
-      <>
+      <div>
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">
@@ -59,8 +63,7 @@ export default function Rightbar({ user }) {
             </span>
           </div>
         </div>
-        <h4 className="rightbarTitle">User friends</h4>
-      </>
+      </div>
     );
   };
   return (

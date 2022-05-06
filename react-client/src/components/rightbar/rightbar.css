@@ -1,6 +1,6 @@
 .rightbar {
   flex: 3.5;
-  background-color: #666;
+  background-color: #666; 
   justify-content: space-between;
 }
 
@@ -115,4 +115,8 @@
 .rightbarFollowButton:focus {
   outline: none;
   background-color: #FC6400;
+}
+
+.profileRightBar {
+  background-color: #666;
 }
