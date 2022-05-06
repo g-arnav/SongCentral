@@ -20,7 +20,7 @@ export default function Share() {
       title: title.current.value,
       description: description.current.value,
     };
-
+    console.log(newPost);
     if (img) {
       const data = new FormData();
       const imgName = Date.now() + img.name;

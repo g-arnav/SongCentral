@@ -50,16 +50,22 @@ router.delete("/:id", async (req, res) => {
 router.put("/:id/like", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
+    const post_creator_id = await post.userId;
+    const post_creator = await User.findById(post_creator_id);
     const user = await User.findById(req.body.userId);
     // check if already liked by curr user and either like or unlike
     if (!post.likes.includes(req.body.userId) && !user.liked_posts.includes(req.params.id)) {
       await post.updateOne({ $push: { likes: req.body.userId } });
       await user.updateOne({ $push: { liked_posts: req.params.id } });
+      await user.updateOne({ $push: { message_to: post_creator_id } });
+      await post_creator.updateOne({ $push: { message_to: req.body.userId } });
       console.log("Post liked");
       res.status(200).json("Post liked");
     } else if (post.likes.includes(req.body.userId) && user.liked_posts.includes(req.params.id)){
       await post.updateOne({ $pull: { likes: req.body.userId } });
       await user.updateOne({ $pull: { liked_posts: req.params.id } });
+      await user.updateOne({ $pull: { message_to: post_creator_id } });
+      await post_creator.updateOne({ $pull: { message_to: req.body.userId } });
       res.status(200).json("Post unliked");
       console.log("Post unliked");
     }
@@ -80,16 +86,18 @@ router.get("/timeline/:userId", async (req, res) => {
 });
 
 router.get("/liked/:userId", async (req, res) => {
+  console.log("getting liked");
   try {
     const currentUser = await User.findById(req.params.userId);
+    console.log("got user");
     // Post.find(match key value as param)
     // all friend posts
     const likedPosts = await Promise.all(
         currentUser.liked_posts.map((postID) => {
-          return Post.find({ _id: postID });
+          return Post.findOne({ _id: postID });
         })
     );
-    res.status(200).json(likedPosts); // all posts together (user + friends)
+    res.status(200).json(likedPosts); // all liked posts together (user + friends)
   } catch (err) {
     console.log(err);
   }

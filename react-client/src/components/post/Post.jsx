@@ -9,6 +9,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 
 export default function Post({ post }) {
+  console.log(post.likes.length);
   const [likes, setLikes] = useState(post.likes.length);
   const [isLiked, setIsLiked] = useState(false);
   const [user, setUser] = useState({});
