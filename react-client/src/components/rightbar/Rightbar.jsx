@@ -87,7 +87,7 @@ export default function Rightbar({ user }) {
 
   const ProfileRightbar = ({ followed }) => {
     return (
-      <>
+      <div>
         {user.username !== currentUser.username && (
           <button className="rightbarFollowx`Button" onClick={handleClick}>
             {followed ? "Unfollow" : "Follow"}
@@ -138,7 +138,7 @@ export default function Rightbar({ user }) {
             </Link>
           ))}
         </div>
-      </>
+      </div>
     );
   };
   return (

@@ -5,10 +5,11 @@
 
 .profile {
   display: flex;
-}
+} 
 
 .profileRight {
   flex: 9;
+  background-color: #333;
 }
 
 .profileCover {
@@ -44,6 +45,7 @@
 
 .profileInfoName {
   font-size: 24px;
+  color: white;
 }
 
 .profileInfoDesc {

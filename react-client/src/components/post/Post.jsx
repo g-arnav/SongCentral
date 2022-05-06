@@ -68,6 +68,7 @@ export default function Post({ post }) {
         </div>
         <div className="postCenter">
           {/* {post.track ? PT + post.track : ""} */}
+          <span>{post.title}</span>
           <img
             className="postImg"
             src={post.image ? PI + post.image : ""}
