@@ -30,7 +30,7 @@ export default function Feed({ username, liked = false}) {
   return (
     <div className="feed">
       <div className="feedWrapper">
-        {(username === user.username || !username) && <Share />}
+        {(username === user.username || !username) && !liked && <Share />}
         {posts.map((p) => (
           <Post key={p._id} post={p} />
         ))}

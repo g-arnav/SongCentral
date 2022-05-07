@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
+import ChatPage from "./pages/Liked/ChatPage";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -23,6 +24,7 @@ function App() {
         {/* <Route path="/" element={<Register />} /> */}
         <Route path="/" element={user ? <Home /> : <Register />} />
         <Route path="/liked" element={user ? <Liked /> : <Register />} />
+        <Route path="/chat" element={user ? <ChatPage /> : <Register />} />
         <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
 
         <Route

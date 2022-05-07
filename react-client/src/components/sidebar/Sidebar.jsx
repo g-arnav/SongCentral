@@ -34,7 +34,9 @@ export default function Sidebar() {
           </li>
           <li className="sidebarListItem">
             <Chat className="sidebarIcon" />
-            <span className="sidebarListItemText">Chats</span>
+            <Link to="/chat" style={{ textDecoration: "none" }}>
+              <span className="sidebarListItemText">Chats</span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <HelpOutline className="sidebarIcon" />
